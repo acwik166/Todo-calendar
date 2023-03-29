@@ -22,6 +22,12 @@ export default function Calendar() {
         setPrefixDays(getDay(startNthMonthDate))
     }
 
+    const isToday = (day) => {
+        if (day == Number(format(new Date(), 'd')) && startOfMonthDate.getMonth() == new Date().getMonth()) {
+            return true
+        }
+        return false
+    }
     return (
         <Flex>
             <Box p="10px" borderRadius="3px">
@@ -38,7 +44,7 @@ export default function Calendar() {
                 </SimpleGrid>
                 <Grid templateColumns="repeat(7, 1fr)" gap="10">
                     <Day colstart={prefixDays + 1} day={1} />
-                    {monthDaysArr.map((day, i) => <Day key={day} day={day} />)}
+                    {monthDaysArr.map((day, i) => <Day key={day} day={day} isToday={isToday(day) ? true : false} />)}
                 </Grid>
             </Box >
         </Flex >
