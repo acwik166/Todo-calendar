@@ -1,34 +1,29 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react'
+import { Flex, Box, Heading, Text, Button } from '@chakra-ui/react'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
+    <div>
+      <Flex>
+        <Box p="10px" borderRadius="3px">
+          <Flex justifyContent="space-between">
+            <Button fontSize="30px">&laquo;</Button>
+            <Heading as="h5" mb="10px">SEP 18</Heading>
+            <Button fontSize="30px">&raquo;</Button>
+          </Flex>
+          <Flex gap="10">
+            <Text fontWeight="bold">S</Text>
+            <Text fontWeight="bold">M</Text>
+            <Text fontWeight="bold">T</Text>
+            <Text fontWeight="bold">W</Text>
+            <Text fontWeight="bold">T</Text>
+            <Text fontWeight="bold">F</Text>
+            <Text fontWeight="bold">S</Text>
+          </Flex>
+        </Box>
+        <Box></Box>
+      </Flex>
+    </div >
   )
 }
 
