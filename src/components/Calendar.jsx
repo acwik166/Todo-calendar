@@ -1,16 +1,25 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { Flex, Box, Heading, Text, Button, SimpleGrid, Grid, GridItem } from '@chakra-ui/react'
 import { getDaysInMonth, startOfMonth, getDay, format, addMonths, subMonths } from 'date-fns'
-
-import Day from './Day'
+import { TaskContext } from '../context/TaskContext'
 
 export default function Calendar() {
+    const { getTasks } = useContext(TaskContext)
+
     const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+
+    const dayItemStyles = {
+        bg: "blue.400",
+        borderRadius: "3px",
+        py: "5px",
+        color: "white"
+    }
 
     const [startOfMonthDate, setStartOfMonthDate] = useState(startOfMonth(new Date()))
     const [daysInMonth, setDaysInMonth] = useState(getDaysInMonth(new Date()))
     const [date, setDate] = useState(new Date())
     const [prefixDays, setPrefixDays] = useState(getDay(startOfMonthDate))
+    const [activeDay, setActiveDay] = useState()
     const monthDaysArr = Array.from({ length: daysInMonth - 1 }, (_, i) => i + 2)
 
     const getNthMonth = (direction) => () => {
@@ -28,6 +37,16 @@ export default function Calendar() {
         }
         return false
     }
+
+    const handleActive = (day) => () => {
+        if (activeDay === day) {
+            setActiveDay(null)
+            return
+        }
+        setActiveDay(day)
+        getTasks(new Date(date.getFullYear(), date.getMonth(), day))
+    }
+
     return (
         <Flex>
             <Box p="10px" borderRadius="3px">
@@ -43,8 +62,8 @@ export default function Calendar() {
                     {daysOfWeek.map((day, i) => <Text key={day}>{day}</Text>)}
                 </SimpleGrid>
                 <Grid templateColumns="repeat(7, 1fr)" gap="10">
-                    <Day colstart={prefixDays + 1} day={1} />
-                    {monthDaysArr.map((day, i) => <Day key={day} day={day} isToday={isToday(day) ? true : false} />)}
+                    <GridItem colStart={prefixDays + 1} sx={activeDay === 1 ? dayItemStyles : ''} fontWeight={() => isToday(1) ? "bold" : ''} color={() => isToday(1) ? "blue.400" : ''} cursor="pointer" onClick={handleActive(1)} py="5px" textAlign="center">1</GridItem>
+                    {monthDaysArr.map((day, i) => <GridItem key={day} sx={activeDay === day ? dayItemStyles : ''} fontWeight={() => isToday(day) ? "bold" : ''} color={() => isToday(day) ? "blue.400" : ''} cursor="pointer" onClick={handleActive(day)} py="5px" textAlign="center">{day}</GridItem>)}
                 </Grid>
             </Box >
         </Flex >

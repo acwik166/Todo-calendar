@@ -26,6 +26,8 @@ export const TaskProvider = ({ children }) => {
         const dayTasks = localStorage.getItem(format(date, 'Y-M-d'))
         if (dayTasks) {
             setTasks(JSON.parse(dayTasks))
+        } else {
+            setTasks(null)
         }
     }
 
