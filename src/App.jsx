@@ -9,7 +9,7 @@ import Tasks from './components/Tasks'
 function App() {
   return (
     <TaskProvider>
-      <Flex bg="blackAlpha.50">
+      <Flex justifyContent="center">
         <Calendar />
         <Tasks />
       </Flex>
