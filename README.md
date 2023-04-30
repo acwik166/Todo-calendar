@@ -14,6 +14,7 @@ To deploy this project run
 ```bash
   npm run dev
 ```
+![image](https://user-images.githubusercontent.com/40490177/235372467-236006f6-755e-4f32-93b9-e76154141eab.png)
 
 ## Demo
 
